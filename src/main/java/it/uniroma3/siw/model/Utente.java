@@ -1,7 +1,16 @@
 package it.uniroma3.siw.model;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
+
+
+// in questo modo vengono generati da Lombok i getter e setter in automatico
+// di default come public
+@Getter @Setter
 
 @Entity
 public class Utente {
@@ -17,21 +26,6 @@ public class Utente {
     private String cognome;
 
     @OneToMany(mappedBy = "utente")
-    private List <Prenotazione> prenotazioni;
+    private List<Prenotazione> prenotazioni;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<Prenotazione> getPrenotazioni() {
-        return prenotazioni;
-    }
-
-    public void setPrenotazioni(List<Prenotazione> prenotazioni) {
-        this.prenotazioni = prenotazioni;
-    }
 }
