@@ -1,7 +1,12 @@
 package it.uniroma3.siw.model;
 
+import it.uniroma3.siw.costants.TipoPrenotazione;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
+@Getter @Setter
 @Entity
 public class Prenotazione {
 
@@ -15,20 +20,6 @@ public class Prenotazione {
     @ManyToOne
     private Utente utente;
 
-    public Utente getUtente() {
-        return utente;
-    }
-
-    public void setUtente(Utente utente) {
-        this.utente = utente;
-    }
-
-    public Stanza getStanza() {
-        return stanza;
-    }
-
-    public void setStanza(Stanza stanza) {
-        this.stanza = stanza;
-    }
+    TipoPrenotazione tipo;
 
 }
