@@ -3,13 +3,60 @@
 <head th:replace="fragments/base.html :: headerfiles(test)"> </head>
 <body>
 <header th:replace="fragments/base.html :: intestazione"></header>
-<div class="card" style="width: 18rem;">
-    <img src="https://picsum.photos/200/300" class="card-img-top img-fluid" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+
+<div id="carosello" class="carousel slide" data-bs-ride="true">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carosello" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carosello" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carosello" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL96h3jVx10lU_RDPfrrLXe0W0rmi1ShrGtg&usqp=CAU" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrpu3HlJC59hRsgSCpyOtWkXb_IlUGwmYwVw&usqp=CAU" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ49szwVnt3IAJBxcs3oppP7RoHNof4FE3_g&usqp=CAU" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carosello" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carosello" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="d-flex flex-row mb-3 justify-content-center align-items-center">
+    <div class="flex-shrink-0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ49szwVnt3IAJBxcs3oppP7RoHNof4FE3_g&usqp=CAU" alt="...">
+    </div>
+    <div >Ostia Antica Park Hotel, un nuovo hotel di recentissima costruzione, situato tra la famosa località turistica archeologica di Ostia Antica ed
+        il mare di Roma (Ostia Lido), a soli 10 km dall' Aeroporto di Fiumicino Leonardo da Vinci e circa 12 km dal complesso della Nuova Fiera di Roma.
+        Ostia Antica Park Hotel è anche location ideale per l'organizzazione di Ricevimenti, Eventi e Matrimoni. Gli incantevoli giardini sempre verdi
+        creano un suggestivo scenario adatto ad ogni tipo di meeting, convention aziendali o cerimonie private.</div>
+</div>
+<div class="d-flex flex-row mb-3 justify-content-center align-items-center">
+    <div >Nella nostra struttura troverete OTIUM SPA, un nuovo e moderno Centro Benessere dotato di sauna, docce emozionali, bagno turco, idromassaggio,
+        zona relax e tisaneria. Per completare il vostro relax l'albergo dispone di solarium e piscina nel giardino collegati alla SPA.
+        Completa i servizi della struttura il nuovo ristorante "Ostia Antica Park Hotel Restaurant" caratterizzato da specialitá romane pizzeria gourmet e
+        griglieria, il ristorante è aperto tutti i giorni dalle 19 alle 23, è consigliata la prenotazione.</div>
+    <div class="flex-shrink-0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ49szwVnt3IAJBxcs3oppP7RoHNof4FE3_g&usqp=CAU" alt="...">
+    </div>
+
+</div>
+<div class="d-flex flex-row mb-3 justify-content-center align-items-center">
+    <div class="flex-shrink-0">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ49szwVnt3IAJBxcs3oppP7RoHNof4FE3_g&usqp=CAU" alt="...">
+    </div>
+    <div >L'hotel dispone di 80 camere singole, doppie e triple, spaziose e confortevoli, quasi tutte dotate di un balcone privato. Sono inoltre disponibili
+         su richiesta camere per non fumatori e per disabili.
+        Tutte le camere dispongono dei seguenti servizi in camera:</div>
 </div>
 <footer th:replace="fragments/base.html :: footer"></footer>
 </body>

@@ -11,7 +11,6 @@ import java.util.List;
 // in questo modo vengono generati da Lombok i getter e setter in automatico
 // di default come public
 @Getter @Setter
-
 @Entity
 public class Utente {
 

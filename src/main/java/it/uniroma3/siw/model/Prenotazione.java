@@ -20,6 +20,7 @@ public class Prenotazione {
     @ManyToOne
     private Utente utente;
 
+    @Column
     TipoPrenotazione tipo;
 
 }
