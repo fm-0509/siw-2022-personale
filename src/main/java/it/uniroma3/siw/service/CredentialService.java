@@ -3,7 +3,7 @@ package it.uniroma3.siw.service;
 import java.util.Optional;
 
 import it.uniroma3.siw.model.security.Credential;
-import it.uniroma3.siw.repository.CredentialRepository;
+import it.uniroma3.siw.repository.security.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

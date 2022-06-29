@@ -1,7 +1,7 @@
 package it.uniroma3.siw.service;
 
 import it.uniroma3.siw.model.security.User;
-import it.uniroma3.siw.repository.UserRepository;
+import it.uniroma3.siw.repository.security.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
