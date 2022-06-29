@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class APIController  {
+    private static final String BASEPATH = "/api";
 
-    @RequestMapping("/api")
+    @RequestMapping(BASEPATH+"/")
     public Object defResponse()
     {
         return null;
