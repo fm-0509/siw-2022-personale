@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -35,7 +36,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 // authorization paragraph: qui definiamo chi può accedere a cosa
                 .authorizeRequests()
                 // chiunque (autenticato o no) può accedere alle pagine index, login, register, ai css e alle immagini
-                .antMatchers(HttpMethod.GET, "/", "/index", "/login", "/register", "/css/**", "/images/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/", "/index", "/login", "/register", "/css/**", "/images/**", "/favicon.ico", "/login*").permitAll()
                 // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
                 .antMatchers(HttpMethod.POST, "/login", "/register").permitAll()
                 // solo gli utenti autenticati con ruolo ADMIN possono accedere a risorse con path /admin/**
@@ -46,19 +47,24 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 
                 // login paragraph: qui definiamo come è gestita l'autenticazione
                 // usiamo il protocollo formlogin
-                .and().formLogin()
-                // la pagina di login si trova a /login
-                // NOTA: Spring gestisce il post di login automaticamente
-                .loginPage("/login")
-                // se il login ha successo, si viene rediretti al path /default
-                .defaultSuccessUrl("/default")
+                .and().formLogin(
+                        form -> form
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/loginSuccess")
+                                .failureUrl("/loginError")
+                );
+        // la pagina di login si trova a /login
+        // NOTA: Spring gestisce il post di login automaticamente
+        // se il login ha successo, si viene rediretti al path /default
 
-                // logout paragraph: qui definiamo il logout
-                .and().logout()
-                // il logout è attivato con una richiesta GET a "/logout"
-                .logoutUrl("/logout")
+
+        // logout paragraph: qui definiamo il logout
+        http.logout()
+                // il logout è attivato con una richiesta GET a "/logout
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                //      .logoutUrl("/logout")
                 // in caso di successo, si viene reindirizzati alla /index page
-                .logoutSuccessUrl("/index")
+                .logoutSuccessUrl("/logoutSuccess")
                 .invalidateHttpSession(true)
                 .clearAuthentication(true).permitAll();
     }

@@ -1,5 +1,6 @@
 package it.uniroma3.siw.controller;
 
+import it.uniroma3.siw.BootstrapAlert;
 import it.uniroma3.siw.controller.validator.CredentialValidator;
 import it.uniroma3.siw.controller.validator.UserValidator;
 import it.uniroma3.siw.model.security.Credential;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AuthenticationController {
@@ -78,5 +80,21 @@ public class AuthenticationController {
         model.addAttribute("credential", credentials);
         model.addAttribute("user", user);
         return "registerUser";
+    }
+
+    @RequestMapping("/loginSuccess")
+    public String loginSuccess(Model model, RedirectAttributes redirectAttributes)
+    {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        redirectAttributes.addFlashAttribute("alert", BootstrapAlert.Success("<strong>Login effettuato correttamente</strong> - Benvenuto "+userDetails.getUsername()));
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/loginError",method = RequestMethod.GET)
+    public String loginError(Model model, RedirectAttributes redirectAttributes)
+    {
+        redirectAttributes.addFlashAttribute("alert",
+                BootstrapAlert.Danger("<strong>ERRORE:</strong> Credenziali errate"));
+        return "redirect:/";
     }
 }

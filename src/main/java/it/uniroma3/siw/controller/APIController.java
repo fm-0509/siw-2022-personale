@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class APIController  {
 
-    @RequestMapping("/")
+    @RequestMapping("/api/")
     public Object defResponse()
     {
         return null;

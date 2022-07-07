@@ -1,48 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/base_p.html :: headerfiles(title='Registra Utente')"> </head>
+<head th:replace="fragments/base.html :: headerfiles(title='Registra Utente')"> </head>
 <body>
-	<header th:replace="fragments/base_p.html :: intestazione"></header>
-	<div>
-    	<h4 th:text="#{header.registra}">Registrazione</h4>
-	<form th:action="@{/register}" method="POST">
-    <table>
-        <tr>
-            <td>Username</td>
-            <td><input type="text" placeholder="username" required
-                       th:field="${credential.username}"/></td>
-            <td th:if="${#fields.hasErrors('credential.username')}"
-                th:errors="${credential.username}" th:style="'color:red'"></td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td><input type="password" placeholder="password" required
-                       th:field="${credential.password}"/></td>
-            <td th:if="${#fields.hasErrors('credential.password')}"
-                th:errors="${credential.password}" th:style="'color:red'"></td>
-        </tr>
-        <tr>
-            <td>Nome</td>
-            <td><input type="text" placeholder="nome" required
-                       th:field="${user.nome}"/></td>
-            <td th:if="${#fields.hasErrors('user.nome')}"
-                th:errors="${user.nome}" th:style="'color:red'"></td>
-        </tr>
-        <tr>
-            <td>Cognome</td>
-            <td><input type="text" placeholder="cognome" required
-                       th:field="${user.cognome}"/></td>
-            <td th:if="${#fields.hasErrors('user.cognome')}"
-                th:errors="${user.cognome}" th:style="'color:red'"></td>
-        </tr>
-        <tr>
-            <td>
-                <button type="submit">Registra</button>
-            </td>
-        </tr>
-    </table>
-	</form>
+	<header th:replace="fragments/base.html :: intestazione"></header>
+    <br>
+    <br>
+    <br>
+    <div class="container-fluid vh-100">
+        <div class="position-absolute top-50 start-50 translate-middle">
+    	    <h4 th:text="#{header.registra}">Registrazione</h4>
+            <form th:action="@{/register}" method="POST">
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="inputUsername" class="col-form-label">Usename</label>
+                    </div>
+                    <div class="col-auto">
+                        <input id="inputUsername" class="form-control" type="text" placeholder="username" required th:field="${credential.username}"/>
+                    </div>
+                    <div class="col-auto" th:if="${#fields.hasErrors('credential.username')}" th:errors="${credential.username}" th:style="'color:red'"></div>
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="inputPassword6" class="col-form-label">Password</label>
+                    </div>
+                    <div class="col-auto">
+                        <input type="password" placeholder="password" required id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline" th:field="${credential.password}"/>
+                    </div>
+                    <div class="col-auto" th:if="${#fields.hasErrors('credential.password')}" th:errors="${credential.password}" th:style="'color:red'"></div>
+                </div>
+                <div class="row g-4 align-items-center">
+                    <div class="col-auto">
+                        <label for="inputNome" class="col-form-label">Nome </label>
+                    </div>
+                    <div class="col-auto">
+                        <input id="inputNome" class="form-control" type="text" placeholder="Nome" required th:field="${user.nome}"/>
+                    </div>
+                    <div class="col-auto" th:if="${#fields.hasErrors('user.nome')}" th:errors="${user.nome}" th:style="'color:red'"></div>
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="inputCognome" class="col-form-label">Cognome</label>
+                    </div>
+                    <div class="col-auto">
+                        <input id="inputCognome" class="form-control" type="text" placeholder="Cognome" required th:field="${user.cognome}"/>
+                    </div>
+                    <div class="col-auto" th:if="${#fields.hasErrors('user.cognome')}" th:errors="${user.cognome}" th:style="'color:red'"></div>
+                </div>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="inputEmail" class="col-form-label">Email</label>
+                    </div>
+                    <div class="col-auto">
+                        <input id="inputEmail" class="form-control" type="text" placeholder="Email" required th:field="${user.email}"/>
+                    </div>
+                    <div class="col-auto" th:if="${#fields.hasErrors('user.email')}" th:errors="${user.cognome}" th:style="'color:red'"></div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-dark my-1">Login</button>
+                </div>
+            </form>
+        </div>
 	</div>
-    <footer th:replace="fragments/base_p.html :: fondo(home='/')"></footer>
+    <footer th:replace="fragments/base.html :: footer"></footer>
 </body>
 </html>
