@@ -96,10 +96,9 @@
 </footer>
 
 <header th:fragment="intestazione" class="p-3 mb-3 border-bottom">
-  <div class="container">
-    <div class="row">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <ul class="nav col-6 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+  <div class="row justify-content-between">
+      <div class="col d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <ul class="nav col col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
           <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Inventory</a></li>
           <li><a href="#" class="nav-link px-2 link-dark">Customers</a></li>
@@ -118,27 +117,63 @@
             <li><a class="dropdown-item" th:href="@{/logout}">Sign out</a></li>
           </ul>
         </div>
-        <div sec:authorize="isAnonymous()" class="col-3 dropdown text-end">
-          <button type="button" class="btn btn-dark my-1 dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</button>
-          <div class="dropdown-menu dropdown-menu-end">
-            <form class="p-4" th:action="@{/login}" th:method="post">
-              <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="">
+        <div sec:authorize="isAnonymous()" class="col">
+
+          <div class="row justify-content-end">
+            <div class="col-auto dropdown">
+              <button type="button" class="btn btn-dark my-1 dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</button>
+              <div class="dropdown-menu dropdown-menu-end">
+                <form class="px-4" th:action="@{/login}" th:method="post">
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleDropdownFormPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleDropdownFormPassword1" name="password" placeholder="Password">
+                  </div>
+                  <button type="submit" class="btn btn-dark my-1">Accedi</button>
+                </form>
               </div>
-              <div class="form-group">
-                <label for="exampleDropdownFormPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleDropdownFormPassword1" name="password" placeholder="Password">
+            </div>
+            <div class="col-2 dropdown">
+              <button type="button" class="btn btn-dark my-1 dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Registrati</button>
+              <div class="dropdown-menu dropdown-menu-end">
+                <form class="px-4" th:action="@{/register}" th:method="post">
+                  <div class="form-group">
+                    <label for="inputUsername">Username</label>
+                    <input id="inputUsername" class="form-control" type="text" placeholder="username" required th:field="${credential.username}"/>
+                    <div th:if="${#fields.hasErrors('credential.username')}" th:errors="${credential.username}" th:style="'color:red'"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input id="inputPassword" class="form-control" type="password" placeholder="Password" required th:field="${credential.password}"/>
+                    <div th:if="${#fields.hasErrors('credential.password')}" th:errors="${credential.password}" th:style="'color:red'"></div>
+                  </div>
+                  <div class="form-group">
+                  <label for="inputNome">Nome</label>
+                  <input id="inputNome" class="form-control" type="text" placeholder="Nome" required th:field="${user.nome}"/>
+                  <div th:if="${#fields.hasErrors('user.nome')}" th:errors="${user.nome}" th:style="'color:red'"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputCognome">Cognome</label>
+                    <input id="inputCognome" class="form-control" type="text" placeholder="Cognome" required th:field="${user.cognome}"/>
+                    <div th:if="${#fields.hasErrors('user.cognome')}" th:errors="${user.cognome}" th:style="'color:red'"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputEmail">Email</label>
+                    <input id="inputEmail" class="form-control" type="text" placeholder="Email" required th:field="${user.email}"/>
+                    <div th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}" th:style="'color:red'"></div>
+                  </div>
+                  <button type="submit" class="btn btn-dark my-1">Registrati</button>
+                </form>
               </div>
-              <button type="submit" class="btn btn-dark my-1">Accedi</button>
-            </form>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-center" ty:href th:href="@{/register}">Registrati</a>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
-  </div>
 
 
 </header>

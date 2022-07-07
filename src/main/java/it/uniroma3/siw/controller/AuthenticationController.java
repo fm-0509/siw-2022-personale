@@ -62,7 +62,7 @@ public class AuthenticationController {
     public String registerUser(@ModelAttribute("user") User user,
                                BindingResult userBindingResult,
                                @ModelAttribute("credentials") Credential credentials,
-                               BindingResult credentialsBindingResult,
+                               BindingResult credentialsBindingResult, RedirectAttributes redirectAttributes,
                                Model model) {
 
         // validate user and credentials fields
@@ -75,11 +75,13 @@ public class AuthenticationController {
             // this also stores the User, thanks to Cascade.ALL policy
             credentials.setUser(user);
             credentialsService.saveCredential(credentials);
-            return "registrationSuccessful";
+            redirectAttributes.addFlashAttribute("alert", BootstrapAlert.Success("<strong>Registrazione effettuata correttamente</strong>"));
+            return "redirect:/";
         }
-        model.addAttribute("credential", credentials);
-        model.addAttribute("user", user);
-        return "registerUser";
+        redirectAttributes.addFlashAttribute("credential", credentials);
+        redirectAttributes.addFlashAttribute("user", user);
+        redirectAttributes.addFlashAttribute("alert", BootstrapAlert.Danger("<strong>ERRORE:</strong> Credenziali errate"));
+        return "redirect:/";
     }
 
     @RequestMapping("/loginSuccess")
@@ -93,8 +95,7 @@ public class AuthenticationController {
     @RequestMapping(value = "/loginError",method = RequestMethod.GET)
     public String loginError(Model model, RedirectAttributes redirectAttributes)
     {
-        redirectAttributes.addFlashAttribute("alert",
-                BootstrapAlert.Danger("<strong>ERRORE:</strong> Credenziali errate"));
+        redirectAttributes.addFlashAttribute("alert", BootstrapAlert.Danger("<strong>ERRORE:</strong> Credenziali errate"));
         return "redirect:/";
     }
 }
