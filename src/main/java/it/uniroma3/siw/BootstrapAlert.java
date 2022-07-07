@@ -95,4 +95,13 @@ public final class BootstrapAlert {
     }
 
 
+    public String getHTML()
+    {
+        return          "<div class=\"alert alert-dismissible fade show "+ this.getCSS() + "\"  role=\"alert\">\n" +
+                        this.getMessage() +"\n" +
+                        "    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\" />\n" +
+                        "  </div>";
+    }
+
+
 }

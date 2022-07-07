@@ -8,6 +8,7 @@
     <div th:if="${alert != null}">
         <div th:replace="fragments/base.html :: alert(${alert})"></div>
     </div>
+    <div id="alert-ct" class="container"></div>
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carosello" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carosello" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -60,4 +61,25 @@
     </div>
 <footer th:replace="fragments/base.html :: footer"></footer>
 </body>
+<script>
+    $(function (){
+        $("#form_registrazione").submit(function(e){
+            e.preventDefault();
+            $.post({
+                url: "/api/register",
+                data : $("#form_registrazione").serialize(),
+                success: function (response)
+                {
+                    if(response.status == "200")
+                        alert("registrazione ok")
+                    else
+                        $("#alert-ct").html(response.html);
+                }
+
+            })
+        });
+
+
+    });
+</script>
 </html>
