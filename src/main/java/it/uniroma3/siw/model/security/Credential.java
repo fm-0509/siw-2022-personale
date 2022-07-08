@@ -9,13 +9,14 @@ import javax.persistence.*;
 @Table(name = "credentials")
 @Data
 @NoArgsConstructor
+@SequenceGenerator(name = "CRED_SEQUENCE_GENERATOR", allocationSize = 1, sequenceName = "CRED_SEQ")
 public class Credential {
 
     public static final String DEFAULT_ROLE = "DEFAULT";
     public static final String ADMIN_ROLE = "ADMIN";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "CRED_SEQUENCE_GENERATOR")
     private Long id;
 
     @Column(nullable = false, unique = true)

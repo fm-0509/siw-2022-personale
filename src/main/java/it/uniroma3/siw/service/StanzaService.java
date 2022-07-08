@@ -1,7 +1,10 @@
 package it.uniroma3.siw.service;
 
 import it.uniroma3.siw.model.Stanza;
+import it.uniroma3.siw.repository.StanzaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,28 +13,23 @@ import java.util.List;
 
 @Service
 public class StanzaService {
+  @Autowired
+  protected StanzaRepository stanzaRepository;
 
-    public Stanza getStanza()
-    {
-        Stanza s1 = new Stanza();
-        s1.setNome("NomeTest");
-        s1.setTipo("TipoTest");
-        return s1;
-    }
+  @Transactional
+    public List<Stanza> getStanze(){
+      List<Stanza> stanze= new ArrayList<>();
+      for(Stanza s: stanzaRepository.findAll())
+          stanze.add(s);
+      return stanze;
+  }
 
-    public List<Stanza> getStanze()
-    {
-        Stanza s1 = new Stanza();
-        s1.setNome("NomeTest");
-        s1.setTipo("TipoTest");
-        Stanza s2 = new Stanza();
-        s2.setNome("NomeTest");
-        s2.setTipo("TipoTest");
-        Stanza s3 = new Stanza();
-        s3.setNome("NomeTest");
-        s3.setTipo("TipoTest");
-
-        return Arrays.asList(s1, s2 , s3);
-
-    }
+  @Transactional
+  public void removeStanza(Long id){
+    stanzaRepository.deleteById(id);
+  }
+  @Transactional
+    public void save (Stanza stanza){
+      stanzaRepository.save(stanza);
+  }
 }

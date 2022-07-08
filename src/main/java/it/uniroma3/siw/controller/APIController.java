@@ -36,14 +36,14 @@ public class APIController  {
         return JSONResponse.CreateErrorResponse("---TEST-ERROR---");
     }
 
-@RequestMapping(value = BASEPATH+"/stanza/{id}", method = RequestMethod.GET)
+/*@RequestMapping(value = BASEPATH+"/stanza/{id}", method = RequestMethod.GET)
     public JSONResponse stanzaById(@ModelAttribute(name = "id") Long id)
     {
         List<Object> data = new ArrayList<>();
         data.add(this.stanzaService.getStanza());
         return JSONResponse.CreateOKResponse(data);
 
-    }
+    }*/
 
     @RequestMapping(value = BASEPATH+"/stanza", method = RequestMethod.GET)
     public JSONResponse getStanze()
@@ -52,11 +52,11 @@ public class APIController  {
     }
 
 
-    @RequestMapping(value = BASEPATH+"/register", method = RequestMethod.POST)
+    /*@RequestMapping(value = BASEPATH+"/register", method = RequestMethod.POST)
     public JSONResponse registraUtente()
     {
         return JSONResponse.CreateErrorResponse(BootstrapAlert.Danger("<strong>Errore creazione</strong>").getHTML());
-    }
+    }*/
 
 
     }

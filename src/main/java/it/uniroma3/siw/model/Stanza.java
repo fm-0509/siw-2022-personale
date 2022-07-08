@@ -7,10 +7,12 @@ import javax.persistence.*;
 
 @Getter @Setter
 @Entity
+@SequenceGenerator(name = "STANZA_SEQUENCE_GENERATOR", allocationSize = 1, sequenceName = "STANZA_SEQ")
+
 public class Stanza {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "STANZA_SEQUENCE_GENERATOR")
+    private Long id;
 
     @Column(nullable = false)
     private String nome;

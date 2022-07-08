@@ -5,10 +5,6 @@
 <header th:replace="fragments/base.html :: intestazione"></header>
 
 <div id="carosello" class="carousel slide" data-bs-ride="true">
-    <div th:if="${alert != null}">
-        <div th:replace="fragments/base.html :: alert(${alert})"></div>
-    </div>
-    <div id="alert-ct" class="container"></div>
     <div class="carousel-indicators">
         <button type="button" data-bs-target="#carosello" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carosello" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -39,13 +35,19 @@
             <div class="col-6">
                 <img class="img-fluid" src="/images/hotel_hall.jpg" alt="hall">
             </div>
-            <div clas="col-6 ps-2">Il nostro Hotel è un albergo 4 stelle ideale per soggiorni di affari, grazie ai servizi business gratuiti
-                dedicati a chi effettua viaggi di lavoro ed alla vicinanza a Zona EUR–Torrino, Parco dei Medici e Laurentino dove hanno sede le maggiori aziende
-                nazionali e multinazionali.</div>
+            <div class="col-6 ps-2">
+                <h2 class="text-center">Il nostro hotel</h2>
+                <br>
+                Il nostro Hotel è un albergo 4 stelle ideale per soggiorni di affari, grazie ai servizi business gratuiti
+                dedicati a chi effettua viaggi di lavoro.</div>
         </div>
         <div class="d-flex flex-row mx-5 my-4 justify-content-center align-items-center">
-            <div class="col-6">Nella nostra struttura troverete OTIUM SPA, un nuovo e moderno Centro Benessere dotato di sauna, docce emozionali, bagno turco, idromassaggio,
-                zona relax e tisaneria. Per completare il vostro relax l'albergo dispone di solarium e piscina nel giardino collegati alla SPA.</div>
+            <div class="col-6">
+                <h2 class="text-center">La nostra spa</h2>
+                <br>
+                Nella nostra struttura troverete OTIUM SPA, un nuovo e moderno Centro Benessere dotato di sauna, docce emozionali, bagno turco,
+                idromassaggio, zona relax e tisaneria. Per completare il vostro relax l'albergo dispone di solarium e piscina nel giardino collegati alla
+                SPA.</div>
             <div class="col-6">
                 <img class="img-fluid" src="/images/spa.jpg" alt="spa">
             </div>
@@ -55,13 +57,16 @@
             <div class="col-6">
                 <img class="img-fluid" src="/images/camera_balcone.jpg" alt="balconi">
             </div>
-            <div class="col-6 ps-2">L'hotel dispone di 80 camere singole, doppie e triple, spaziose e confortevoli, quasi tutte dotate di un balcone privato. Sono inoltre disponibili
-                 su richiesta camere per non fumatori e per disabili.</div>
+            <div class="col-6 ps-2">
+                <h2 class="text-center">Le nostre camere</h2>
+                <br>
+                L'hotel dispone di 80 camere singole, doppie e triple, spaziose e confortevoli, quasi tutte dotate di un balcone privato.
+                Sono inoltre disponibili su richiesta camere per non fumatori e per disabili.</div>
         </div>
     </div>
 <footer th:replace="fragments/base.html :: footer"></footer>
 </body>
-<script>
+<!--<script>
     $(function (){
         $("#form_registrazione").submit(function(e){
             e.preventDefault();
@@ -81,5 +86,5 @@
 
 
     });
-</script>
+</script>-->
 </html>
