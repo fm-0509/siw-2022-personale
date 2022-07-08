@@ -1,15 +1,13 @@
 package it.uniroma3.siw.service;
 
+import it.uniroma3.siw.model.Prenotazione;
 import it.uniroma3.siw.model.Stanza;
 import it.uniroma3.siw.repository.StanzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class StanzaService {
@@ -31,5 +29,11 @@ public class StanzaService {
   @Transactional
     public void save (Stanza stanza){
       stanzaRepository.save(stanza);
+  }
+
+  @Transactional
+  public Stanza findById(Long idStanza) {
+    Optional<Stanza> result = this.stanzaRepository.findById(idStanza);
+    return result.orElse(null);
   }
 }

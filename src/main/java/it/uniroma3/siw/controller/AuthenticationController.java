@@ -28,14 +28,14 @@ public class AuthenticationController {
     @Autowired
     private CredentialValidator credentialsValidator;
 
-    @RequestMapping(value="/register", method = RequestMethod.GET, params = "registra")
+    @RequestMapping(value="/register", method = RequestMethod.GET)
     public String getRegisterPage(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("credential", new Credential());
-        return "registerUser";
+        return "redirect:/";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET, params = "login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String showLoginForm (Model model) {
         return "index";
     }

@@ -40,6 +40,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/", "/index", "/login", "/register", "/css/**", "/images/**", "/favicon.ico", "/login*").permitAll()
                 // chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register
                 .antMatchers(HttpMethod.GET, "/login", "/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/register").permitAll()
 
                 //API
                 .antMatchers(HttpMethod.GET, "/api/**").permitAll()

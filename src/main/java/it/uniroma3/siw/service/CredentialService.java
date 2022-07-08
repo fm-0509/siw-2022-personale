@@ -37,4 +37,10 @@ public class CredentialService {
         credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
         return this.credentialsRepository.save(credentials);
     }
+
+	@Transactional
+    public Credential findByUsername(String username) {
+		Optional<Credential> result = this.credentialsRepository.findByUsername(username);
+		return result.orElse(null);
+    }
 }

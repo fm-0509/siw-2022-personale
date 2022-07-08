@@ -1,27 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="fragments/base.html :: headerfiles(test)">
 </head>
 <body>
     <header th:replace="fragments/base.html :: intestazione"></header>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">N prenotazione</th>
-            <th scope="col">Nome stanza </th>
-            <th scope="col">Tipo stanza</th>
-            <th scope="col">Dimensione stanza</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="prenotazione: ${prenotazioni}">
-            <td th:text="${prenotazione.id}">numero</td>
-            <td th:text="${prenotazione.stanza.nome}">nome</td>
-            <td th:text="${prenotazione.stanza.tipo}">tipo</td>
-            <td th:text="${prenotazione.staqnza.dimensione}">dimensione</td>
-        </tr>
-        </tbody>
-    </table>
-
+    <div class="container vh-100">
+        <table sec:authorize="hasAnyAuthority('DEFAULT')" class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">N prenotazione</th>
+                <th scope="col">Nome stanza </th>
+                <th scope="col">Tipo stanza</th>
+                <th scope="col">Dimensione stanza</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prenotazione: ${prenotazioni}">
+                <td th:text="${prenotazione.id}">numero</td>
+                <td th:text="${prenotazione.stanza.nome}">nome</td>
+                <td th:text="${prenotazione.stanza.tipo}">tipo</td>
+                <td th:text="${prenotazione.stanza.dimensione}">dimensione</td>
+            </tr>
+            </tbody>
+        </table>
+        <table sec:authorize="hasAnyAuthority('ADMIN')" class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Id prenotazione</th>
+                <th scope="col">Id stanza</th>
+                <th scope="col">Nome stanza </th>
+                <th scope="col">Id utente</th>
+                <th scope="col">Nome utente</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prenotazione: ${prenotazioni}">
+                <td th:text="${prenotazione.id}">numero</td>
+                <td th:text="${prenotazione.stanza.id}">idS</td>
+                <td th:text="${prenotazione.stanza.nome}">nomeS</td>
+                <td th:text="${prenotazione.utente.id}">idU</td>
+                <td th:text="${prenotazione.utente.nome}">nomeU</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="fragments/base.html :: footer"></footer>
 </body>
 </html>
