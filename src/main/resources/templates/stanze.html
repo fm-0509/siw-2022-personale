@@ -43,7 +43,7 @@
                 <div class="card h-100">
                     <!--<img src="..." class="card-img-top" alt="...">-->
                     <div class="card-body">
-                        <h5 class="card-title text-center" th:text="${stanz.nome}" th:attr="data-el_id=${stanz.id}">Card title</h5>
+                        <h5 class="card-title text-center" th:text="${stanz.nome}">Card title</h5>
                         <div class="card-text">
                             <table>
                                 <tr>
@@ -58,8 +58,8 @@
                             <hr>
                             <div class="pt-2 d-flex justify-content-around">
                                 <a sec:authorize="hasAnyAuthority('DEFAULT')" class="btn btn-dark py-2" role="button" th:href="@{'/addPrenotazione' + '/' + ${stanz.id}}">Prenota</a>
-                                <a sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-dark py-2" role="button" >Modifica</a>
-                                <a sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-dark py-2" role="button" th:href="@{'/admin' + '/removeStanza' + '/' + ${stanz.id}}">Elimina</a>
+                                <a sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-dark py-2 edit-link" role="button" th:attr="data-idStanza=${stanz.id}">Modifica</a>
+                                <a sec:authorize="hasAnyAuthority('ADMIN')" class="btn btn-dark py-2 delete-link" role="button" href="#" th:attr="data-idStanza=${stanz.id}">Elimina</a>
                             </div>
                         </div>
                     </div>
@@ -67,6 +67,67 @@
             </div>
         </div>
     </div>
+<div id="modal_form"></div>
 <footer th:replace="fragments/base.html :: footer"></footer>
 </body>
+<script>
+    $(function (){
+        $(".delete-link").click(function (e) {
+            alert("started");
+            e.preventDefault();
+           // if(!$(this).data("idStanza"))
+             //   return false;
+            if(confirm("Eliminare la stanza?"))
+                $.ajax(
+                    {
+                        method : "DELETE",
+                        url : "/api/stanza/"+$(this).data("idstanza") ,
+                        success: function (response)
+                        {
+                            if(response.status == 200)
+                                location.reload();
+                            else
+                                $("#alert-ct").html(response.html);
+                        },
+                        error: function (response) {
+                            alert(response.html);
+                        }
+                    }
+                )
+
+        })
+
+        $(".edit-link").click(function (event) {
+            event.preventDefault();
+
+            $.get({
+                url: "/api/stanzaForm/"+ $(this).data("idstanza"),
+                success : function (response)
+                {
+                    if(response.status == 200)
+                    {
+                        $("#modal_form").html(response.html);
+                        const modal = new bootstrap.Modal('#modal_form');
+                        $("#form_modifica").submit(function (e) {
+                            e.preventDefault();
+                            alert("submitted");
+                            modal.hide();
+
+                        })
+                        modal.show();
+
+                    }
+                }
+
+            })
+
+
+        })
+
+
+    })
+
+
+</script>
+
 </html>

@@ -58,5 +58,34 @@ public class APIController  {
         return JSONResponse.CreateErrorResponse(BootstrapAlert.Danger("<strong>Errore creazione</strong>").getHTML());
     }*/
 
+    @RequestMapping(value = BASEPATH+"/stanza/{id}" ,method = RequestMethod.DELETE)
+    public JSONResponse deleteStanza(@ModelAttribute("id") Long id)
+    {
+        this.stanzaService.removeStanza(id);
+        return JSONResponse.CreateOKResponse("");
+    }
+
+    @RequestMapping(value = BASEPATH+"/stanzaForm/{id}")
+    public JSONResponse modifyStanza(@ModelAttribute("id") Long id)
+    {
+        return JSONResponse.CreateOKResponse("<div class=\"modal\" tabindex=\"-1\" id=\"modal_form\">\n" +
+                "  <div class=\"modal-dialog\">\n" +
+                "    <div class=\"modal-content\">\n" +
+                "      <div class=\"modal-header\">\n" +
+                "        <h5 class=\"modal-title\">Modal title</h5>\n" +
+                "        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
+                "      </div>\n" +
+                "      <div class=\"modal-body\">\n" +
+                "        <p>Modal body text goes here.</p>\n" +
+                "      </div>\n" +
+                "      <div class=\"modal-footer\">\n" +
+                "        <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Close</button>\n" +
+                "        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n" +
+                "      </div>\n" +
+                "    </div>\n" +
+                "  </div>\n" +
+                "</div>\n");
+    }
+
 
     }

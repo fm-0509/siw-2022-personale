@@ -36,8 +36,9 @@ public class AuthenticationController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String showLoginForm (Model model) {
-        return "index";
+    public String showLoginForm (RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("alert", BootstrapAlert.Info("<strong>&Egrave; necessario effettuare il login</strong>"));
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
