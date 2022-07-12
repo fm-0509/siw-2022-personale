@@ -48,17 +48,18 @@ public class PrenotazioneController {
         return "/prenotazioni";
     }
 
-    @RequestMapping(value = { "/admin/addPrenotazione/{idStanza}" }, method = RequestMethod.POST)
-    public String addPrenotazione(@PathVariable (value="idStanza") Long idStanza, @Valid @ModelAttribute(value="tipo") TipoPrenotazione tipo, Model model,
-                                  BindingResult bindingResult, RedirectAttributes redirectAttributes){
+    @RequestMapping(value = { "/admin/addPrenotazione/{idStanza}", "/addPrenotazione/{idStanza}" }, method = RequestMethod.GET)
+    public String addPrenotazione(@PathVariable (value="idStanza") Long idStanza, Model model,
+                                  RedirectAttributes redirectAttributes){
         Prenotazione prenotazione= new Prenotazione();
+        TipoPrenotazione tipo = TipoPrenotazione.INSERITA;
         prenotazione.setTipo(tipo);
         prenotazione.setStanza(stanzaService.findById(idStanza));
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Credential credential=credentialService.findByUsername(userDetails.getUsername());
         prenotazione.setUtente(credential.getUser());
-        this.prenotazioneValidator.validate(prenotazione, bindingResult);
-        if(!bindingResult.hasErrors()){
+       if(!prenotazioneService.alreadyExistsByStanzaAndUser(prenotazione))
+        {
             this.prenotazioneService.save(prenotazione);
             redirectAttributes.addFlashAttribute("prenotazione", prenotazione);
             redirectAttributes.addFlashAttribute("alert", BootstrapAlert.Success("<strong>Prenotazione aggiunta correttamente</strong>"));
@@ -66,7 +67,7 @@ public class PrenotazioneController {
         }
         else{
             redirectAttributes.addFlashAttribute("prenotazione", prenotazione);
-            redirectAttributes.addFlashAttribute("alert", BootstrapAlert.Danger("<strong>Erroe</strong> parametri non corretti"));
+            redirectAttributes.addFlashAttribute("alert", BootstrapAlert.Danger("<strong>Erroe</strong> Prenotazione gi&agrave; inserita"));
             return "redirect:/stanze";
         }
     }

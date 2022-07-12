@@ -2,8 +2,11 @@ package it.uniroma3.siw.controller;
 
 import it.uniroma3.siw.BootstrapAlert;
 import it.uniroma3.siw.JSONResponse;
+import it.uniroma3.siw.model.Stanza;
+import it.uniroma3.siw.service.PrenotazioneService;
 import it.uniroma3.siw.service.StanzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +23,9 @@ public class APIController  {
 
     @Autowired
     private StanzaService stanzaService;
+
+    @Autowired
+    private PrenotazioneService prenotazioneService;
 
 
     private static final String BASEPATH = "/api";
@@ -61,31 +67,33 @@ public class APIController  {
     @RequestMapping(value = BASEPATH+"/stanza/{id}" ,method = RequestMethod.DELETE)
     public JSONResponse deleteStanza(@ModelAttribute("id") Long id)
     {
+        if(this.prenotazioneService.existsPrenotazioneByStanza(this.stanzaService.getStanzaById(id)))
+            return JSONResponse.CreateErrorResponse(BootstrapAlert.Warning("<Strong>Errore</strong> Sono presenti prenotazioni in questa stanza, impossibile eliminarla").getHTML());
         this.stanzaService.removeStanza(id);
         return JSONResponse.CreateOKResponse("");
     }
 
-    @RequestMapping(value = BASEPATH+"/stanzaForm/{id}")
-    public JSONResponse modifyStanza(@ModelAttribute("id") Long id)
+    @RequestMapping(value = BASEPATH+"/stanza/{id}", method = RequestMethod.GET)
+    public JSONResponse<Stanza> getStanza(@ModelAttribute("id") Long id)
     {
-        return JSONResponse.CreateOKResponse("<div class=\"modal\" tabindex=\"-1\" id=\"modal_form\">\n" +
-                "  <div class=\"modal-dialog\">\n" +
-                "    <div class=\"modal-content\">\n" +
-                "      <div class=\"modal-header\">\n" +
-                "        <h5 class=\"modal-title\">Modal title</h5>\n" +
-                "        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
-                "      </div>\n" +
-                "      <div class=\"modal-body\">\n" +
-                "        <p>Modal body text goes here.</p>\n" +
-                "      </div>\n" +
-                "      <div class=\"modal-footer\">\n" +
-                "        <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Close</button>\n" +
-                "        <button type=\"button\" class=\"btn btn-primary\">Save changes</button>\n" +
-                "      </div>\n" +
-                "    </div>\n" +
-                "  </div>\n" +
-                "</div>\n");
+        List<Stanza> stanza = new ArrayList<>();
+        stanza.add(stanzaService.getStanzaById(id));
+        return JSONResponse.CreateOKResponse(stanza);
     }
+
+    @RequestMapping(value = BASEPATH+"/stanza", method = RequestMethod.PUT)
+    public JSONResponse modificaStanza(@ModelAttribute("stanza") Stanza stanza,
+                                       BindingResult bindingResult)
+    {
+        if(bindingResult.hasErrors())
+            return JSONResponse.CreateErrorResponse("stanza non esistente");
+        if(!this.stanzaService.existsById(stanza.getId()))
+            return JSONResponse.CreateErrorResponse("stanza non esistente");
+        this.stanzaService.save(stanza);
+        return JSONResponse.CreateOKResponse("");
+    }
+
+
 
 
     }

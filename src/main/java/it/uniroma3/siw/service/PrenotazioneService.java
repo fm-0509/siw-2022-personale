@@ -1,6 +1,7 @@
 package it.uniroma3.siw.service;
 
 import it.uniroma3.siw.model.Prenotazione;
+import it.uniroma3.siw.model.Stanza;
 import it.uniroma3.siw.repository.PrenotazioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
@@ -21,6 +22,13 @@ public class PrenotazioneService {
         return prenotazioneRepository.existsById(prenotazione.getId());
     }
 
+    public boolean alreadyExistsByStanzaAndUser(Prenotazione prenotazione)
+    {
+        return this.prenotazioneRepository.existsPrenotazioneByUtenteAndStanza(prenotazione.getUtente(), prenotazione.getStanza());
+    }
+
+
+
     @Transactional
     public List<Prenotazione> getPrenotazioni(){
         List<Prenotazione> prenotazioni= new ArrayList<>();
@@ -40,5 +48,9 @@ public class PrenotazioneService {
             prenotazioni.add(p);
         }
         return prenotazioni;
+    }
+
+    public boolean existsPrenotazioneByStanza(Stanza stanza) {
+        return this.prenotazioneRepository.existsPrenotazioneByStanza(stanza);
     }
 }

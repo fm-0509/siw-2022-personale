@@ -4,6 +4,7 @@ import it.uniroma3.siw.costants.TipoPrenotazione;
 import it.uniroma3.siw.model.security.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 

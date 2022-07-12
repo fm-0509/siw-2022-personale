@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/base.html :: headerfiles(test)">
+<head th:replace="fragments/base.html :: headerfiles(Stanze)">
 </head>
 
 <body>
@@ -67,13 +67,54 @@
             </div>
         </div>
     </div>
-<div id="modal_form"></div>
+<div>
+    <div class="modal fade" tabindex="-1" id="modal_form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modifica stanza</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="px-4" action="#" id="modifica_form">
+                        <div class="form-group">
+                            <label for="nome_modifica">Nome</label>
+                            <input id="nome_modifica" class="form-control" type="text" placeholder="Nome" required="" name="nome" value="">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_modifica">Tipo</label>
+                            <input id="tipo_modifica" class="form-control" type="text" placeholder="Tipo" required="" name="tipo" value="">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="dimensione_modifica">Dimensione</label>
+                            <input id="dimensione_modifica" class="form-control" type="text" placeholder="dimensione" required="" name="dimensione" value="">
+                        </div>
+                        <input type="hidden" name="id" value="" id="id_modifica">
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-primary" id="invia_modifica">Modifica</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 <footer th:replace="fragments/base.html :: footer"></footer>
 </body>
 <script>
     $(function (){
+        const modal = new bootstrap.Modal('#modal_form');
+
+
         $(".delete-link").click(function (e) {
-            alert("started");
+           // alert("started");
             e.preventDefault();
            // if(!$(this).data("idStanza"))
              //   return false;
@@ -101,25 +142,42 @@
             event.preventDefault();
 
             $.get({
-                url: "/api/stanzaForm/"+ $(this).data("idstanza"),
+                url: "/api/stanza/"+ $(this).data("idstanza"),
                 success : function (response)
                 {
                     if(response.status == 200)
                     {
-                        $("#modal_form").html(response.html);
-                        const modal = new bootstrap.Modal('#modal_form');
-                        $("#form_modifica").submit(function (e) {
-                            e.preventDefault();
-                            alert("submitted");
-                            modal.hide();
-
-                        })
+                        $("#nome_modifica").val(response.data[0].nome)
+                        $("#tipo_modifica").val(response.data[0].tipo)
+                        $("#dimensione_modifica").val(response.data[0].dimensione)
+                        $("#id_modifica").val(response.data[0].id)
                         modal.show();
-
                     }
                 }
-
             })
+        })
+
+        $("#invia_modifica").click(function () {
+            if($("#id_modifica").val() == "")
+                return false;
+            $.ajax(
+                {
+                    method : "PUT",
+                    url : "/api/stanza",
+                    data: $("#modifica_form").serialize(),
+                    success: function (response)
+                    {
+                        if(response.status == 200)
+                            location.reload();
+                        else
+                            $("#alert-ct").html(response.html);
+                    },
+                    error: function (response) {
+                        alert(response.html);
+                    }
+                }
+            )
+
 
 
         })

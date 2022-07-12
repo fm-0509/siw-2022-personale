@@ -36,4 +36,15 @@ public class StanzaService {
     Optional<Stanza> result = this.stanzaRepository.findById(idStanza);
     return result.orElse(null);
   }
+  @Transactional
+    public Stanza getStanzaById(Long id) {
+      return this.stanzaRepository.findById(id).orElse(null);
+    }
+  @Transactional
+  public boolean existsById(Long id) {
+    return this.stanzaRepository.existsById(id);
+  }
+
+
+
 }
